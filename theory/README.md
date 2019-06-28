@@ -15,3 +15,8 @@
 Коэффициенты регрессии (β) — это коэффициенты, которые рассчитываются в результате выполнения регрессионного анализа. Вычисляются величины для каждой независимой переменной, которые представляют силу и тип взаимосвязи независимой переменной по отношению к зависимой. 
 
 Невязки. Существует необъяснимое количество зависимых величин, представленных в уравнении регрессии как случайные ошибки ε.
+
+# Нахождение оценок коэффициентов регрессии, решением системы нормальных уравнении
+Пусть даны два ряда наблюдений ![equation](https://latex.codecogs.com/gif.latex?x_i) и ![equation](https://latex.codecogs.com/gif.latex?y_i) (зависимая переменная), ![equation](https://latex.codecogs.com/gif.latex?i=\overline{1,n}). Уравнение полинома имеет вид
+![equation](https://latex.codecogs.com/gif.latex?y=\sum\limits_{j=0}^k&space;b_jx^j,\&space;\&space;\&space;\&space;\&space;(1))
+,где ![equation](https://latex.codecogs.com/gif.latex?b_j) — параметры данного полинома, ![equation](https://latex.codecogs.com/gif.latex?j=\overline{0,k}). Среди них ![equation](https://latex.codecogs.com/gif.latex?b_0) — свободный член. Найдём по методу наименьших квадратов (МНК) параметры ![equation](https://latex.codecogs.com/gif.latex?b_j) данной регрессии.
