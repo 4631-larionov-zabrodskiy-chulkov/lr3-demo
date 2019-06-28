@@ -1,8 +1,13 @@
-language: bash
+language: python
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install numpy
+  - pip install matplotlib
+  - pip install scipy
 
 script:
-    - yes '' | sudo add-apt-repository ppa:octave/stable
-    - sudo apt-get update
-    - sudo apt-get install octave
-    - octave myLr3.m
-    - bash runTests.sh
+  - python Lab3.py
