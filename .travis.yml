@@ -9,3 +9,4 @@ install:
 
 script:
   - python Lab3.py
+  - bash runTests.sh
