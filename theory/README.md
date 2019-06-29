@@ -135,7 +135,7 @@ RMSE of linear regression is 15.908242501429998.
 R2 score of linear regression is 0.6386750054827146
 ```
 Чтобы преодолеть несостыковки, нам нужно повысить сложность модели. 
-Чтобы сгенерировать уравнение более высокого порядка, мы можем добавить возможности оригинальных функций в качестве новых функций. 
+Чтобы сгенерировать уравнение более высокого порядка, мы можем добавить возможности исходных функций в качестве новых функций. 
 Линейная модель, 
 
 ![alt_text](https://cdn-images-1.medium.com/max/1600/1*adrhNj5POluyuFCa9WfBIg.png)
@@ -144,5 +144,74 @@ R2 score of linear regression is 0.6386750054827146
 
 ![alt_text](https://cdn-images-1.medium.com/max/1600/1*rL76rQ1hhrvPjAQFwvpN4w.png)
 
+Эта модель все еще будет считаться линейной, так как коэффициенты / зависимости, связанные с функциями, все еще линейны. Однако теперь нужная нам кривая имеет квадратичный характер.
 
+Для того, чтобы преобразовать исходные функции, в функции более высокого порядка, мы будем использовать класс ```PolynomialFeatures```, предоставляемый библиотекой ```scikit-learn```. Далее мы обучаем модель с использованием линейной регрессии. 
+
+```
+import operator
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import PolynomialFeatures
+
+np.random.seed(0)
+x = 2 - 3 * np.random.normal(0, 1, 20)
+y = x - 2 * (x ** 2) + 0.5 * (x ** 3) + np.random.normal(-3, 3, 20)
+
+# transforming the data to include another axis
+x = x[:, np.newaxis]
+y = y[:, np.newaxis]
+
+polynomial_features= PolynomialFeatures(degree=2)
+x_poly = polynomial_features.fit_transform(x)
+
+model = LinearRegression()
+model.fit(x_poly, y)
+y_poly_pred = model.predict(x_poly)
+
+rmse = np.sqrt(mean_squared_error(y,y_poly_pred))
+r2 = r2_score(y,y_poly_pred)
+print(rmse)
+print(r2)
+
+plt.scatter(x, y, s=10)
+# sort the values of x before line plot
+sort_axis = operator.itemgetter(0)
+sorted_zip = sorted(zip(x,y_poly_pred), key=sort_axis)
+x, y_poly_pred = zip(*sorted_zip)
+plt.plot(x, y_poly_pred, color='m')
+plt.show()
+```
+//Чтобы сгенерировать полином (а именно полином второй степени)
+```
+polynomial_features = PolynomialFeatures(degree=2) #degree - степень
+x_poly = polynomial_features.fit_transform(x)
+```
+Подгонка модели линейной регрессии к преобразованным элементам дает следующий график:
+
+![alt_text](https://cdn-images-1.medium.com/max/1600/1*uJtlIlaT-o3DDh5VaGsy4A.png)
+
+Из графика можем понять, что квадратичный полином может соответствовать данным лучше, чем прямая. Вычисление среднеквадратичной ошибки(RMSE) и коэффициента детерминации(R²) квадратичного графика дает:
+```
+RMSE of polynomial regression is 10.120437473614711.
+R2 of polynomial regression is 0.8537647164420812.
+```
+Можно сразу заметить среднеквадратичная ошибка уменьшилась, а коэф. детерминации увеличился по сравнению с линейной регрессии.
+
+Если же мы попытаемся подогнать кубическую кривую (полином третьей степени) к набору данных, то мы увидим, что он проходит через больше точек данных, чем квадратичный и линейный графики.
+
+![alt_text](https://cdn-images-1.medium.com/max/1600/1*Pa_Ma_X-IQNMn7ZbtT5lPA.png)
+
+Таковы вычесления полинома третьей степени:
+```
+RMSE is 3.449895507408725
+R2 score is 0.9830071790386679
+```
+Ниже приведено сравнение подгонки линейных, квадратичных и кубических кривых к набору данных.
+
+![alt_text](https://cdn-images-1.medium.com/max/1600/1*eXe8BOlfP-yTbHZtdnGSMg.png)
 
