@@ -215,7 +215,7 @@ R2 score is 0.9830071790386679
 
 ![alt_text](https://cdn-images-1.medium.com/max/1600/1*eXe8BOlfP-yTbHZtdnGSMg.png)
 
-Исходник статьи: https://towardsdatascience.com/polynomial-regression-bbe8b9d97491
+Источник статьи: https://towardsdatascience.com/polynomial-regression-bbe8b9d97491
 
 Также несколько источников для ознакомления с библиотекой ```Scikit-learn```:
 
