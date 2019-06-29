@@ -19,7 +19,8 @@ A = np.array([
 C = np.array([y_, np.sum(x*y)/n, np.sum(x*x*y)/n, np.sum(x*x*x*y)/n])
 B = np.linalg.solve(A,C)
 
-print("b[0] = %.2f\tb[1] = %.2f\tb[2] = %.2f\tb[3] = %.2f"%(B[0], B[1], B[2], B[3]))
+print("Вариант 22")
+print("B[0] = %.3f\nB[1] = %.3f\nB[2] = %.3f\nB[3] = %.3f"%(B[0], B[1], B[2], B[3]))
 print("\ty = %.2f x^3 + %.2f x^2 + %.2f x + %.2f " % (B[3], B[2], B[1], B[0]))
 
 xplot=np.arange(np.min(x) - 1,np.max(x) + 1,0.01)
